@@ -13,7 +13,6 @@ class App extends React.Component{
     return(
       <div>
         <Layout>
-          <p>test</p>
         </Layout>
         <BurgerBuilder>
 

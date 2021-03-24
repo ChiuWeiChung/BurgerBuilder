@@ -1,9 +1,9 @@
 import axios from 'axios';
-
+import dbURL from './dbURL';
 
 
 const instance = axios.create({
-    baseURL: 'https://react-my-burger-d13a3-default-rtdb.firebaseio.com/',
+    baseURL: dbURL
 })
 
 const reqInterceptor =instance.interceptors.request.use(req => {

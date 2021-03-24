@@ -6,17 +6,17 @@ import Aux from '../auxiliary';
 
 const withErrorHandler = (WrappedComponent, axios) => {
     return class extends React.Component {
-
-
-
         state = {
-            error: null,
-            msg: null
+            modalError: null,
+            modalMsg: null
         }
 
         updateWrapperState = (err, msg) => {
-            this.setState({ error: err, msg: msg })
+            // console.log(this.state);
+            this.setState({ modalError: err, modalMsg: msg })
         }
+
+
 
         componentWillUnmount() {
             // console.log('Will Unmount', axios.reqInterceptor, axios.resInterceptor);
@@ -27,19 +27,16 @@ const withErrorHandler = (WrappedComponent, axios) => {
 
 
         errorConfirmedHandler = () => {
-            this.setState({ error: null, msg: null });
+            this.setState({ modalError: null, modalMsg: null });
         }
 
         render() {
-            // console.log(this.state.error)
-            // console.log(this.state.msg)
-
             return (
                 <Aux>
-                    <Modal show={this.state.error} modalClosed={this.errorConfirmedHandler}>
-                        {this.state.error? this.state.msg :null}
+                    <Modal show={this.state.modalError} modalClosed={this.errorConfirmedHandler}>
+                        {this.state.modalError? this.state.modalMsg :null}
                     </Modal>
-                    <WrappedComponent {...this.props} err={this.updateWrapperState} />
+                    <WrappedComponent {...this.props}  showError={this.updateWrapperState} />
                 </Aux>
             )
         }

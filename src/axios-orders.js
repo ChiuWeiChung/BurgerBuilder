@@ -15,7 +15,9 @@ const reqInterceptor =instance.interceptors.request.use(req => {
 const resInterceptor=instance.interceptors.response.use(res => {
     return res;
 }, err => {
+    // console.log(err.message)
     return Promise.reject(err);
+    // throw new Error(err);
 })
 
 export default {instance,reqInterceptor,resInterceptor};

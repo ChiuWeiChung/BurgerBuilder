@@ -3,7 +3,7 @@ import Aux from '../../hoc/auxiliary';
 import classes from './Layout.module.css';
 import Toolbar from '../Navigation/Toolbar/Toolbar';
 import SideDrawer from '../Navigation/SideDrawer/SideDrawer';
-
+import { connect } from 'react-redux';
 
 class Layout extends React.Component {
 
@@ -17,8 +17,8 @@ class Layout extends React.Component {
 
     SideDrawerOpenHandler = () => {
         // this.setState({ showSideDrawer: true });
-        this.setState((prevState)=>{
-            return{showSideDrawer:!prevState.showSideDrawer}
+        this.setState((prevState) => {
+            return { showSideDrawer: !prevState.showSideDrawer }
         })
     }
 
@@ -26,8 +26,15 @@ class Layout extends React.Component {
         return (
             <Aux>
                 <div>
-                    <Toolbar drawerToggleClicked={this.SideDrawerOpenHandler}  />
-                    <SideDrawer open={this.state.showSideDrawer} closed={this.SideDrawerClosedHandler} />
+                    <Toolbar
+                        drawerToggleClicked={this.SideDrawerOpenHandler}
+                        isAuth={this.props.isAuthenticated}
+                    />
+                    <SideDrawer
+                        open={this.state.showSideDrawer}
+                        closed={this.SideDrawerClosedHandler}
+                        isAuth={this.props.isAuthenticated}
+                    />
                 </div>
                 <main className={classes.Content}>
                     {this.props.children}
@@ -37,4 +44,11 @@ class Layout extends React.Component {
     }
 }
 
-export default Layout
+
+const mapStateToProps = state => {
+    return {
+        isAuthenticated: state.auth.token !== null
+    }
+}
+
+export default connect(mapStateToProps)(Layout)

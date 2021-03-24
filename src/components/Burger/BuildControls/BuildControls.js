@@ -16,14 +16,17 @@ const buildControls = (props) => {
             {controls.map(ctrl => {
                 return (
                     <BuildControl
-                        type = {ctrl.type}
+                        type={ctrl.type}
                         added={props.ingredientAdded}
                         key={ctrl.label}
-                        disabledInfo = {props.disabledInfo[ctrl.type]}
+                        disabledInfo={props.disabledInfo[ctrl.type]}
                         label={ctrl.label} />
                 )
             })}
-            <button onClick={props.ordered} className={classes.OrderButton} disabled={!props.purchasable} >ORDER NOW</button>
+            <button
+                onClick={props.ordered}
+                className={classes.OrderButton}
+                disabled={!props.purchasable} >{props.isAuth ? "ORDER NOW" : "SIGN UP TO ORDER"}</button>
         </div>
     )
 }
